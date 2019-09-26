@@ -23,16 +23,14 @@ void setup()
   pinMode(out, INPUT);
   Serial.begin(9600);
   digitalWrite(s0, HIGH);
-  digitalWrite(s1, LOW);
+  digitalWrite(s1, HIGH);
 }
  
 void loop()
 {
   if (Serial.available() > 0) {
-    //Detecta a cor
-    color();
-    
-    if(Serial.readString() == 'getcolor'){
+    if(Serial.read() == 'A'){
+      color();
       vermelho = 0;
       azul = 0;
       verde = 0;
@@ -50,10 +48,10 @@ void loop()
           verde++;
         }
       }
-      if(vermelho == 5)Serial.print("Vermelho");      
-      else if(azul == 5)Serial.print("azul");      
-      else if(verde == 5)Serial.print("verde");
-      else Serial.print("nao reconhecido");
+      if(vermelho == 5)Serial.println("Vermelho");      
+      else if(azul == 5)Serial.println("azul");      
+      else if(verde == 5)Serial.println("verde");
+      else Serial.println("nao reconhecido");
     }
     delay(100);
   }

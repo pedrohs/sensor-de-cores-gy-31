@@ -1,3 +1,4 @@
+//pinos do sensor
 const int s0 = 8;
 const int s1 = 9;
 const int s2 = 12;
@@ -8,11 +9,6 @@ const int out = 10;
 int red = 0;
 int green = 0;
 int blue = 0;
-
-int vermelho = 0;
-int verde = 0;
-int azul = 0;
-
 
 void setup()
 {
@@ -29,11 +25,11 @@ void setup()
 void loop()
 {
   if (Serial.available() > 0) {
-    if(Serial.read() == 'A'){
-      color();
-      vermelho = 0;
-      azul = 0;
-      verde = 0;
+    if(Serial.read() == 'A'){//comando para detectar cor pela serial
+      color();//função que detecta as cores
+      int vermelho = 0;
+      int azul = 0;
+      int verde = 0;
       for(int i=0;i<5;i++){
         if (red < blue && red < green && red < 100)
         {
@@ -48,6 +44,8 @@ void loop()
           verde++;
         }
       }
+      //feito total de 5 verificações
+      //retorna a cor que atingir as 5 confirmações
       if(vermelho == 5)Serial.println("Vermelho");      
       else if(azul == 5)Serial.println("azul");      
       else if(verde == 5)Serial.println("verde");
@@ -59,15 +57,11 @@ void loop()
  
 void color()
 {
-  //Rotina que le o valor das cores
   digitalWrite(s2, LOW);
-  digitalWrite(s3, LOW);
-  //count OUT, pRed, RED
+  digitalWrite(s3, LOW);  
   red = pulseIn(out, digitalRead(out) == HIGH ? LOW : HIGH);
-  digitalWrite(s3, HIGH);
-  //count OUT, pBLUE, BLUE
+  digitalWrite(s3, HIGH);  
   blue = pulseIn(out, digitalRead(out) == HIGH ? LOW : HIGH);
-  digitalWrite(s2, HIGH);
-  //count OUT, pGreen, GREEN
+  digitalWrite(s2, HIGH);  
   green = pulseIn(out, digitalRead(out) == HIGH ? LOW : HIGH);
 }

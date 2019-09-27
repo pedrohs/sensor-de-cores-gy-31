@@ -1,4 +1,4 @@
-//pinos do sensor
+//pinos do sensor 
 const int s0 = 8;
 const int s1 = 9;
 const int s2 = 12;
@@ -44,7 +44,6 @@ void loop()
           verde++;
         }
       }
-      //feito total de 5 verificações
       //retorna a cor que atingir as 5 confirmações
       if(vermelho == 5)Serial.println("Vermelho");      
       else if(azul == 5)Serial.println("azul");      
